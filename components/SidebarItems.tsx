@@ -167,7 +167,7 @@ export const UserDetails = ({ session }: { session: AuthSession }) => {
   if (!user?.name || user.name.length == 0) return null;
 
   return (
-    <Link href="/account">
+    <Link href="#">
       <div
         className={`flex items-center ${
           sidebarOpen ? "justify-between" : "justify-center"

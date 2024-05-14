@@ -9,13 +9,13 @@ import { Button } from "@/components/ui/button";
 import { AlignRight } from "lucide-react";
 import { defaultLinks } from "@/config/nav";
 
-export default function Navbar() {
+export default function NavbarSmall() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   return (
     <div className="md:hidden border-b mb-4 pb-2 w-full">
       <nav className="flex justify-between w-full items-center">
-        <div className="font-semibold text-lg">Logo</div>
+        <div className="font-semibold text-lg">DNA</div>
         <Button variant="ghost" onClick={() => setOpen(!open)}>
           <AlignRight />
         </Button>

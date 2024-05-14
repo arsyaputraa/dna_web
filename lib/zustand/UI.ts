@@ -11,7 +11,7 @@ export interface UI {
 export const useUiStore = create<UI>()(
   persist(
     (set, get) => ({
-      sidebarOpen: true,
+      sidebarOpen: false,
       setSidebarOpen: () => {
         set((state) => ({
           ...state,

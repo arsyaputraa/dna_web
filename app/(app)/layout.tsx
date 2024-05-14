@@ -1,7 +1,8 @@
-import { checkAuth } from "@/lib/auth/utils";
-import { Toaster } from "@/components/ui/sonner";
-import Navbar from "@/components/Navbar";
+import NavbarSmall from "@/components/NavbarSmall";
 import Sidebar from "@/components/Sidebar";
+import Navbar from "@/components/ui/Navbar";
+import { Toaster } from "@/components/ui/sonner";
+import { checkAuth } from "@/lib/auth/utils";
 export default async function AppLayout({
   children,
 }: {
@@ -12,9 +13,10 @@ export default async function AppLayout({
     <main>
       <div className="flex h-screen">
         <Sidebar />
-        <main className="flex-1 md:p-8 pt-2 p-8 overflow-y-auto">
+        <main className="flex-1  overflow-y-auto">
+          <NavbarSmall />
           <Navbar />
-          {children}
+          <div className="md:p-8 pt-2 p-8">{children}</div>
         </main>
       </div>
       <Toaster richColors />
