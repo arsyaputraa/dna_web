@@ -11,6 +11,7 @@ export async function LoginApi(username: string, password: string) {
       body: JSON.stringify({
         username,
         password,
+        fcmToken: "asajdsaads",
       }),
     },
   });
