@@ -16,6 +16,9 @@ import {
 } from "../auth/utils";
 
 import { updateUserSchema } from "../db/schema/auth";
+import { UserExtraData } from "../types/user";
+import { useFetch } from "../api/apiInstance";
+import { LoginApi } from "../api/auth/auth";
 
 interface ActionResult {
   error: string;
@@ -29,16 +32,9 @@ export async function signInAction(
   if (error !== null) return { error };
 
   const { username, password } = data;
-  const dnaLogin =
-    username === "technical project13" && password === "password"
-      ? {
-          id: 1,
-          name: "technical project13",
-          jwtToken: "exampletokenJWTfromBackend",
-        }
-      : null;
+  const dnaLogin: UserExtraData = await LoginApi(username, password);
 
-  if (!dnaLogin)
+  if (!!dnaLogin && !!dnaLogin.accessToken)
     return {
       error: "Invalid username or password",
     };
@@ -59,8 +55,9 @@ export async function signInAction(
         data: {
           ...existingUser,
           username: username,
-          name: dnaLogin.name,
-          token: dnaLogin.jwtToken,
+          name: dnaLogin.user.name,
+          token: dnaLogin.accessToken,
+          extra_data: JSON.stringify(existingUser.extra_data),
         },
       });
       setAuthCookie(sessionCookie);
@@ -71,8 +68,9 @@ export async function signInAction(
         data: {
           id: userId,
           username: username,
-          name: dnaLogin.name,
-          token: dnaLogin.jwtToken,
+          name: dnaLogin.user.name,
+          token: dnaLogin.accessToken,
+          extra_data: JSON.stringify(dnaLogin),
         },
       });
       const session = await lucia.createSession(newUser.id, {});

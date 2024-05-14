@@ -16,5 +16,7 @@ export async function LoginApi(username: string, password: string) {
     },
   });
 
-  return fetching;
+  console.error("ini ressponse login", fetching);
+
+  return fetching.data;
 }

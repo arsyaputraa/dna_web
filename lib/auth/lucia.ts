@@ -21,10 +21,12 @@ export const lucia = new Lucia(adapter, {
       username: attributes.username,
       name: attributes.name,
       token: attributes.token,
+      extra_data: !!attributes.extra_data
+        ? JSON.parse(attributes.extra_data)
+        : null,
     };
   },
 });
-
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
@@ -36,6 +38,7 @@ interface DatabaseUserAttributes {
   username: string;
   name: string;
   token: string;
+  extra_data?: string;
 }
 
 export const validateRequest = cache(

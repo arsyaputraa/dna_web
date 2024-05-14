@@ -5,7 +5,10 @@ import { validateRequest } from "../auth/lucia";
 interface UseFetchProps {
   url: string;
   method: "GET" | "POST" | "DELETE" | "PATCH" | "PUT" | "OPTION";
-  headers: HeadersInit;
+  headers?: HeadersInit & {
+    "Content-Type": string;
+    Authorization?: string;
+  };
   otherOption?: RequestInit;
 }
 
@@ -21,17 +24,18 @@ export const useFetch = async <T>({
     `${process.env.NEXT_PUBLIC_API_DEV_URL}${props.url}`,
     {
       method: props.method,
-      headers: !!user?.token
-        ? {
-            ...props.headers,
-            Authorization: `Bearer ${user?.token}`,
-          }
-        : {
-            ...props.headers,
-          },
+      headers:
+        !!props.headers && !!props.headers.Authorization
+          ? props.headers
+          : {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user?.token}`,
+            },
       ...props.otherOption,
     }
   );
+
+  console.error("fetchinggg", fetching);
 
   try {
     const result = await fetching.json();
