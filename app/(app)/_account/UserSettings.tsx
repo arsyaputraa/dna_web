@@ -11,7 +11,7 @@ export default function UserSettings({
   return (
     <>
       <UpdateNameCard name={session?.user.name ?? ""} />
-      <UpdateEmailCard email={session?.user.email ?? ""} />
+      {/* <UpdateEmailCard email={session?.user.email ?? ""} /> */}
     </>
   );
 }

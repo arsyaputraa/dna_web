@@ -23,10 +23,10 @@ export default function SignInPage() {
       </h1>
       <AuthFormError state={state} />
       <form action={formAction}>
-        <Label htmlFor="email" className="text-muted-foreground">
-          Email
+        <Label htmlFor="username" className="text-muted-foreground">
+          Username
         </Label>
-        <Input name="email" id="email" type="email" required />
+        <Input name="username" id="username" type="text" required />
         <br />
         <Label htmlFor="password" className="text-muted-foreground">
           Password
@@ -35,7 +35,7 @@ export default function SignInPage() {
         <br />
         <SubmitButton />
       </form>
-      <div className="mt-4 text-sm text-center text-muted-foreground">
+      {/* <div className="mt-4 text-sm text-center text-muted-foreground">
         Don&apos;t have an account yet?{" "}
         <Link
           href="/sign-up"
@@ -43,7 +43,7 @@ export default function SignInPage() {
         >
           Create an account
         </Link>
-      </div>
+      </div> */}
     </main>
   );
 }

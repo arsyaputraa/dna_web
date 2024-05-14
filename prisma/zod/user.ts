@@ -3,8 +3,10 @@ import { CompleteSession, relatedSessionSchema } from "./index"
 
 export const userSchema = z.object({
   id: z.string(),
-  email: z.string(),
-  hashedPassword: z.string(),
+  username: z.string().nullish(),
+  created_date: z.date().nullish(),
+  updated_date: z.date().nullish(),
+  token: z.string().nullish(),
   name: z.string().nullish(),
 })
 

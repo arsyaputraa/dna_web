@@ -10,43 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id           String    @id @db.VarChar(255)
+  username     String?   @unique @db.VarChar(255)
+  created_date DateTime? @default(now()) @db.DateTime
+  updated_date DateTime? @updatedAt @db.DateTime
+  token        String?   @db.VarChar(255)
+  name         String?   @db.VarChar(255)
+  sessions     Session[]
+}
+
 model Session {
   id        String   @id
   userId    String   @db.VarChar(255)
   expiresAt DateTime
-  user_fe   user_fe  @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Session_Portal {
-  id        String         @id
-  userId    String         @db.VarChar(255)
-  expiresAt DateTime
-  user_fe   user_fe_portal @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model user_fe {
-  id                String    @id @db.VarChar(255)
-  username          String?   @unique @db.VarChar(255)
-  created_date      DateTime? @default(now()) @db.DateTime
-  updated_date      DateTime? @db.DateTime
-  entity_id         Int?
-  tokenHospital     String?   @db.VarChar(255)
-  tokenPolicyMaster String?   @db.VarChar(255)
-  tokenClaim        String?   @db.VarChar(255)
-  name              String?   @db.VarChar(255)
-  application_type  String?   @db.VarChar(255)
-  Session           Session[]
-}
-
-model user_fe_portal {
-  id                String           @id @db.VarChar(255)
-  username          String?          @unique @db.VarChar(255)
-  created_date      DateTime?        @default(now()) @db.DateTime
-  updated_date      DateTime?        @db.DateTime
-  entity_id         Int?
-  tokenHospital     String?          @db.VarChar(255)
-  tokenPolicyMaster String?          @db.VarChar(255)
-  tokenClaim        String?          @db.VarChar(255)
-  name              String?          @db.VarChar(255)
-  Session           Session_Portal[]
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
