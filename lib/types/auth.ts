@@ -5,6 +5,7 @@ export type AuthSession = {
       name?: string;
       email?: string;
       username?: string;
+      token?: string;
     };
   } | null;
 };
