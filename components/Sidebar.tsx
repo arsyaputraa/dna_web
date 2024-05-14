@@ -34,9 +34,9 @@ const UserDetails = ({ session }: { session: AuthSession }) => {
     <Link href="/account">
       <div className="flex items-center justify-between w-full border-t border-border pt-4 px-2">
         <div className="text-muted-foreground">
-          <p className="text-xs">{user.name ?? "John Doe"}</p>
+          <p className="text-xs">{user.name ?? "Name"}</p>
           <p className="text-xs font-light pr-4">
-            {user.email ?? "john@doe.com"}
+            {user.username ?? "username"}
           </p>
         </div>
         <Avatar className="h-10 w-10">
