@@ -6,7 +6,9 @@ export async function LoginApi(username: string, password: string) {
   const fetching = await useFetch({
     url: "/auth/login",
     method: "POST",
-    headers: {},
+    headers: {
+      "Content-Type": "application/json",
+    },
     otherOption: {
       body: JSON.stringify({
         username,
@@ -18,5 +20,5 @@ export async function LoginApi(username: string, password: string) {
 
   console.error("ini ressponse login", fetching);
 
-  return fetching.data;
+  return fetching;
 }

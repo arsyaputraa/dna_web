@@ -19,6 +19,7 @@ import { updateUserSchema } from "../db/schema/auth";
 import { UserExtraData } from "../types/user";
 import { useFetch } from "../api/apiInstance";
 import { LoginApi } from "../api/auth/auth";
+import { GeneralApiResponse } from "../types/general";
 
 interface ActionResult {
   error: string;
@@ -32,9 +33,12 @@ export async function signInAction(
   if (error !== null) return { error };
 
   const { username, password } = data;
-  const dnaLogin: UserExtraData = await LoginApi(username, password);
-
-  if (!!dnaLogin && !!dnaLogin.accessToken)
+  const dnaLogin: GeneralApiResponse<UserExtraData> = await LoginApi(
+    username,
+    password
+  );
+  console.log("ini login api result", dnaLogin);
+  if (!!dnaLogin.data.accessToken)
     return {
       error: "Invalid username or password",
     };
@@ -55,8 +59,8 @@ export async function signInAction(
         data: {
           ...existingUser,
           username: username,
-          name: dnaLogin.user.name,
-          token: dnaLogin.accessToken,
+          name: dnaLogin.data.user.name,
+          token: dnaLogin.data.accessToken,
           extra_data: JSON.stringify(existingUser.extra_data),
         },
       });
@@ -68,8 +72,8 @@ export async function signInAction(
         data: {
           id: userId,
           username: username,
-          name: dnaLogin.user.name,
-          token: dnaLogin.accessToken,
+          name: dnaLogin.data.user.name,
+          token: dnaLogin.data.accessToken,
           extra_data: JSON.stringify(dnaLogin),
         },
       });
