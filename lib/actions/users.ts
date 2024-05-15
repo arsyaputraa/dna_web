@@ -37,6 +37,10 @@ export async function signInAction(
     username,
     password
   );
+  console.log(
+    "ini data dna login",
+    JSON.parse(dnaLogin.data as unknown as string)
+  );
   if (!!dnaLogin.data.accessToken)
     return {
       error: "Invalid username or password",

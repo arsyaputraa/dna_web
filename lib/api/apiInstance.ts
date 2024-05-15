@@ -37,6 +37,7 @@ export const useFetch = async <T>({
         ...props.otherOption,
       }
     );
+    console.log("ini fetching instance", fetching);
     const result = await fetching.json();
     return {
       data: result,
@@ -44,6 +45,7 @@ export const useFetch = async <T>({
       isSuccess: fetching.ok ? true : false,
     };
   } catch (error) {
+    console.log("ini fetching instance", fetching);
     return {
       data: JSON.stringify(error),
       status: !!fetching?.status ? fetching.status : 500,
