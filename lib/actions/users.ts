@@ -37,7 +37,9 @@ export async function signInAction(
     username,
     password
   );
-  if (!!dnaLogin.data.accessToken)
+
+  console.log("dna Login", dnaLogin);
+  if (!!!dnaLogin.data.accessToken)
     return {
       error: "Invalid username or password",
     };
@@ -60,7 +62,7 @@ export async function signInAction(
           username: username,
           name: dnaLogin.data.user.name,
           token: dnaLogin.data.accessToken,
-          extra_data: JSON.stringify(existingUser.extra_data),
+          extra_data: JSON.stringify(existingUser?.extra_data),
         },
       });
       setAuthCookie(sessionCookie);
@@ -83,6 +85,7 @@ export async function signInAction(
       return redirect("/dashboard");
     }
   } catch (e) {
+    console.log("error from here", e);
     return genericError;
   }
 }

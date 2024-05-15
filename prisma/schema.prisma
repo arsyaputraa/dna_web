@@ -12,7 +12,7 @@ model User {
   username     String?   @unique @db.VarChar(255)
   created_date DateTime? @default(now()) @db.DateTime
   updated_date DateTime? @updatedAt @db.DateTime
-  token        String?   @db.VarChar(255)
+  token        String?   @db.Text
   name         String?   @db.VarChar(255)
   extra_data   String?   @db.Text
   sessions     Session[]
