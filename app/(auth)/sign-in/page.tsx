@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
-import axaLogo from "public/images/axa-logo.png";
 
 export default function SignInPage() {
   const [state, formAction] = useFormState(signInAction, {
@@ -19,7 +18,7 @@ export default function SignInPage() {
   return (
     <div className="max-w-sm flex flex-col items-center mx-auto my-4">
       <Image
-        src={axaLogo}
+        src={"/images/axa-logo.png"}
         width={200}
         height={200}
         alt="axa logo"

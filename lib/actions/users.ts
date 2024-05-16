@@ -5,21 +5,20 @@ import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db/index";
 
-import { Argon2id } from "oslo/password";
 import { generateId } from "lucia";
+import { Argon2id } from "oslo/password";
 import { lucia, validateRequest } from "../auth/lucia";
 import {
   genericError,
+  getUserAuth,
   setAuthCookie,
   validateAuthFormData,
-  getUserAuth,
 } from "../auth/utils";
 
-import { updateUserSchema } from "../db/schema/auth";
-import { UserExtraData } from "../types/user";
-import { useFetch } from "../api/apiInstance";
 import { LoginApi } from "../api/auth/auth";
+import { updateUserSchema } from "../db/schema/auth";
 import { GeneralApiResponse } from "../types/general";
+import { UserExtraData } from "../types/user";
 
 interface ActionResult {
   error: string;
@@ -37,10 +36,12 @@ export async function signInAction(
     username,
     password
   );
-  if (!!dnaLogin.data.accessToken)
+  console.log("ini hasil dnaLogin", dnaLogin.data.accessToken);
+  if (!dnaLogin.isSuccess) {
     return {
       error: "Invalid username or password",
     };
+  }
 
   try {
     const existingUser = await db.user.findUnique({
@@ -83,6 +84,7 @@ export async function signInAction(
       return redirect("/dashboard");
     }
   } catch (e) {
+    console.log(e);
     return genericError;
   }
 }
