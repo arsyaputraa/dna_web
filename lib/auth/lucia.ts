@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { cache } from "react";
 
-import { type Session, type User, Lucia } from "lucia";
 import { db } from "@/lib/db/index";
+import { Lucia, type Session, type User } from "lucia";
 
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 

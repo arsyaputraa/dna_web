@@ -61,7 +61,7 @@ export async function signInAction(
           username: username,
           name: dnaLogin.data.user.name,
           token: dnaLogin.data.accessToken,
-          extra_data: JSON.stringify(existingUser.extra_data),
+          extra_data: JSON.stringify(existingUser?.extra_data),
         },
       });
       setAuthCookie(sessionCookie);

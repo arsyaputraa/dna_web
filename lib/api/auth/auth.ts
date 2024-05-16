@@ -8,6 +8,10 @@ export async function LoginApi(username: string, password: string) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      versionCode: "2",
+      versionName: "1.0.1",
+      deviceType: "dna-tablet-android",
+      deviceId: "2D1A871D-337B-43D7-A1B8-161AD22ECE1D",
     },
     otherOption: {
       body: JSON.stringify({
@@ -17,8 +21,6 @@ export async function LoginApi(username: string, password: string) {
       }),
     },
   });
-
-  console.error("ini ressponse login", fetching);
 
   return fetching;
 }
