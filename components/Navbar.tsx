@@ -1,6 +1,6 @@
 import { getUserAuth } from "@/lib/auth/utils";
 import React from "react";
-import { Avatar, AvatarFallback } from "./avatar";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 
 const Navbar = async () => {
   const session = await getUserAuth();
@@ -9,7 +9,7 @@ const Navbar = async () => {
   const user = session.session.user;
 
   return (
-    <nav className="flex justify-end bg-primary shadow-sm text-primary-foreground py-4 px-6">
+    <nav className=" hidden md:flex justify-end bg-primary shadow-sm text-primary-foreground py-4 px-6">
       <div className={`flex items-center gap-2 `}>
         <div className={`text-primary-foreground`}>
           <p className="text-xs">{user.name ?? "John Doe"}</p>

@@ -3,3 +3,7 @@ export interface GeneralApiResponse<T> {
   status: number;
   isSuccess: boolean;
 }
+
+export interface Data {
+  [key: string]: any;
+}
