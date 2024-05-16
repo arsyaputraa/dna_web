@@ -1,20 +1,26 @@
-import { getUserAuth } from "@/lib/auth/utils";
-import React from "react";
-import { Avatar, AvatarFallback } from "./ui/avatar";
+"use client";
 
-const Navbar = async () => {
-  const session = await getUserAuth();
-  if (session.session === null) return null;
+import { useHeadStore } from "@/lib/zustand/Header";
+import { usePathname } from "next/navigation";
+import { useMemo } from "react";
 
-  const user = session.session.user;
+const Navbar = ({ name }: { name: string }) => {
+  const { headername, setHeaderName } = useHeadStore();
+  const pathname = usePathname();
 
+  useMemo(() => {
+    setHeaderName("");
+  }, [pathname]);
   return (
-    <nav className=" hidden md:flex justify-end bg-primary shadow-sm text-primary-foreground py-4 px-6">
+    <nav className=" hidden md:flex justify-between bg-primary shadow-sm text-primary-foreground py-4 px-6">
+      <div>
+        <h1 className="font-semibold upper">{headername}</h1>
+      </div>
       <div className={`flex items-center gap-2 `}>
         <div className={`text-primary-foreground`}>
-          <p className="text-xs">{user.name ?? "John Doe"}</p>
+          <p className="text-xs">{name ?? "John Doe"}</p>
         </div>
-        <Avatar className="h-10 w-10">
+        {/* <Avatar className="h-10 w-10">
           <AvatarFallback className="border-border border-2 text-muted-foreground">
             {user.name
               ? user.name
@@ -23,7 +29,7 @@ const Navbar = async () => {
                   .join("")
               : "~"}
           </AvatarFallback>
-        </Avatar>
+        </Avatar> */}
       </div>
     </nav>
   );
