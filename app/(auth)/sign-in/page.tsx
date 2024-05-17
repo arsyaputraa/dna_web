@@ -8,9 +8,12 @@ import AuthFormError from "@/components/auth/AuthFormError";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function SignInPage() {
+  const [showPassword, setShowPassword] = useState(false);
   const [state, formAction] = useFormState(signInAction, {
     error: "",
   });
@@ -37,7 +40,24 @@ export default function SignInPage() {
           <Label htmlFor="password" className="text-muted-foreground">
             Password
           </Label>
-          <Input type="password" name="password" id="password" required />
+          <div className="relative flex">
+            <Input
+              className=""
+              type={showPassword ? "text" : "password"}
+              name="password"
+              id="password"
+              required
+            />
+            <Button
+              variant="ghost"
+              className="absolute right-0 z-10"
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+            </Button>
+          </div>
+
           <br />
           <SubmitButton />
         </form>

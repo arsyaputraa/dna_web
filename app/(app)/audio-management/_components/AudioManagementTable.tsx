@@ -115,6 +115,7 @@ const AudioManagementTable = () => {
         <Button
           className="flex gap-1 items-center bg-green-500 font-semibold"
           size={"sm"}
+          onClick={handleOpenDetailDialog}
         >
           Detail
         </Button>
@@ -137,18 +138,18 @@ const AudioManagementTable = () => {
   const [uploadDialog, setUploadDialog] = useState<boolean>(false);
   const [detailDialog, setDetailDialog] = useState<boolean>(false);
 
-  const handleOpenDialog = () => {
+  function handleOpenDialog() {
     setUploadDialog(true);
-  };
-  const handleCloseDialog = () => {
+  }
+  function handleCloseDialog() {
     setUploadDialog(false);
-  };
-  const handleOpenDetailDialog = () => {
+  }
+  function handleOpenDetailDialog() {
     setDetailDialog(true);
-  };
-  const handleCloseDetailDialog = () => {
+  }
+  function handleCloseDetailDialog() {
     setDetailDialog(false);
-  };
+  }
 
   return (
     <div>
