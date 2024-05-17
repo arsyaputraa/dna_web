@@ -1,11 +1,14 @@
 "use client";
+import DialogCustomized from "@/components/DialogCustomized";
 import { DataTable } from "@/components/table/DataTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
-import { Eye } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import { ReactNode, useRef, useState } from "react";
+import UploadAudio from "./UploadAudio";
 
 interface AudioManagementTableProps {
   no: number;
@@ -21,39 +24,97 @@ const AudioManagementTable = () => {
   const column: ColumnDef<AudioManagementTableProps>[] = [
     {
       accessorKey: "no",
-      header: "No",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          No
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
     },
     {
       accessorKey: "policyNumber",
-      header: "Policy Number",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Policy Number
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
     },
     {
       accessorKey: "productName",
-      header: "Product Name",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Product Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
     },
     {
       accessorKey: "agentName",
-      header: "Agent Name",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Agent Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
     },
     {
       accessorKey: "submissionStatus",
-      header: "Submission Status",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Submition Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
     },
     {
       accessorKey: "submissionDate",
-      header: "Submission Date",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Submition Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
       cell: ({ row }) =>
         `${dayjs(row.original.submissionDate).format("YYYY-MM-DD HH:mm:ss")}`,
     },
     {
       accessorKey: "submissionType",
-      header: "Submission Type",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Submition Type
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
     },
     {
       header: "Action",
       cell: () => (
-        <Button className="flex gap-1 items-center bg-green-700" size={"sm"}>
-          <Eye />
+        <Button
+          className="flex gap-1 items-center bg-green-500 font-semibold"
+          size={"sm"}
+        >
           Detail
         </Button>
       ),
@@ -71,6 +132,15 @@ const AudioManagementTable = () => {
       submissionType: "Face to Face",
     };
   });
+
+  const [uploadDialog, setUploadDialog] = useState<boolean>(false);
+  const uploadDialogTriggerRef = useRef<ReactNode>(null);
+  const handleOpenDialog = () => {
+    setUploadDialog(true);
+  };
+  const handleCloseDialog = () => {
+    setUploadDialog(false);
+  };
 
   return (
     <div>
@@ -111,6 +181,10 @@ const AudioManagementTable = () => {
         </div>
       </div>
 
+      <div className="text-right mb-2">
+        <Button onClick={handleOpenDialog}>Upload Audio</Button>
+      </div>
+
       <div>
         <DataTable
           columns={column}
@@ -121,6 +195,21 @@ const AudioManagementTable = () => {
           totalPage={10}
         />
       </div>
+
+      {/* DIALOG */}
+      <DialogCustomized
+        open={uploadDialog}
+        onOpenChange={setUploadDialog}
+        contentProps={{
+          className: "w-max",
+        }}
+      >
+        <UploadAudio
+          onSubmit={(val) => {
+            handleCloseDialog();
+          }}
+        />
+      </DialogCustomized>
     </div>
   );
 };
