@@ -10,8 +10,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import axaLogo from "public/images/axa-logo.png";
+import { useState } from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 export default function SignInPage() {
+  const [showPassword, setShowPassword] = useState(false);
   const [state, formAction] = useFormState(signInAction, {
     error: "",
   });
@@ -38,7 +41,23 @@ export default function SignInPage() {
           <Label htmlFor="password" className="text-muted-foreground">
             Password
           </Label>
-          <Input type="password" name="password" id="password" required />
+          <div className="relative flex">
+            <Input
+              className=""
+              type={showPassword ? "text" : "password"}
+              name="password"
+              id="password"
+              required
+            />
+            <Button
+              variant="ghost"
+              className="absolute right-0 z-10"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+            </Button>
+          </div>
+
           <br />
           <SubmitButton />
         </form>
