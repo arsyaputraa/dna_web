@@ -9,8 +9,10 @@ import { additionalLinks, defaultLinks } from "@/config/nav";
 import { AuthSession } from "@/lib/types/auth";
 import { cn } from "@/lib/utils";
 import { useUiStore } from "@/lib/zustand/UI";
+import { PopoverContent } from "@radix-ui/react-popover";
 import { useMemo, useState } from "react";
 import SidebarChild from "./SidebarChild";
+import SignOutBtn from "./auth/SignOutBtn";
 import {
   Accordion,
   AccordionContent,
@@ -18,10 +20,8 @@ import {
   AccordionTrigger,
 } from "./ui/accordion";
 import { Avatar, AvatarFallback } from "./ui/avatar";
-import { Separator } from "./ui/separator";
 import { Popover, PopoverTrigger } from "./ui/popover";
-import { PopoverContent } from "@radix-ui/react-popover";
-import SignOutBtn from "./auth/SignOutBtn";
+import { Separator } from "./ui/separator";
 
 export interface SidebarLink {
   title: string;
@@ -150,10 +150,7 @@ const SidebarLink = ({
         <ul className="list-inside pl-1">
           {link.children.map((child) => (
             <li key={`${child.href}-${child.title}-${child.children.length}`}>
-              <SidebarChild
-                child={child}
-                active={pathname.includes(child.href)}
-              />
+              <SidebarChild child={child} active={pathname === child.href} />
             </li>
           ))}
         </ul>

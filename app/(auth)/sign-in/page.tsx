@@ -22,7 +22,7 @@ export default function SignInPage() {
   return (
     <div className="max-w-sm flex flex-col items-center mx-auto my-4">
       <Image
-        src={axaLogo}
+        src={"/images/axa-logo.png"}
         width={200}
         height={200}
         alt="axa logo"

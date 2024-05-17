@@ -1,11 +1,10 @@
 "use client";
 import { AuthSession } from "@/lib/types/auth";
-import { useUiStore } from "@/lib/zustand/UI";
-import { Landmark } from "lucide-react";
-import SidebarItems, { UserDetails } from "./SidebarItems";
-import axaLogo from "public/images/axa-logo.png";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useUiStore } from "@/lib/zustand/UI";
+import Image from "next/image";
+import axaLogo from "public/images/axa-logo.png";
+import SidebarItems from "./SidebarItems";
 
 const SidebarPartial = ({ session }: { session: AuthSession }) => {
   const { sidebarOpen, setSidebarClosed, setSidebarOpened } = useUiStore(
@@ -77,7 +76,7 @@ const SidebarPartial = ({ session }: { session: AuthSession }) => {
           {/* <Landmark className={sidebarOpen ? "sr-only" : ""} /> */}
           <SidebarItems />
         </div>
-        <UserDetails session={session} />
+        {/* <UserDetails session={session} /> */}
       </div>
     </aside>
   );

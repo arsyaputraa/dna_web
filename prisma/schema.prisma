@@ -3,24 +3,24 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlserver"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id           String    @id @db.VarChar(255)
-  username     String?   @unique @db.VarChar(255)
-  created_date DateTime? @default(now()) @db.DateTime
-  updated_date DateTime? @updatedAt @db.DateTime
-  token        String?   @db.Text
-  name         String?   @db.VarChar(255)
+  id           String    @id
+  username     String?   @unique
+  created_date DateTime? @default(now())
+  updated_date DateTime? @updatedAt
+  token        String?
+  name         String?
   extra_data   String?   @db.Text
   sessions     Session[]
 }
 
 model Session {
   id        String   @id
-  userId    String   @db.VarChar(255)
+  userId    String
   expiresAt DateTime
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

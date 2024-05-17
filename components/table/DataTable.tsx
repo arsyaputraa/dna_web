@@ -1,5 +1,7 @@
 "use client";
 
+import { useSkipper } from "@/hooks/useSkipper";
+import { Data } from "@/lib/types/general";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -18,8 +20,8 @@ import {
   ChangeEvent,
   Dispatch,
   SetStateAction,
-  useState,
   useEffect,
+  useState,
 } from "react";
 import { Button } from "../ui/button";
 import {
@@ -37,11 +39,9 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import FooterCell from "./FooterCell";
-import { useSkipper } from "@/hooks/useSkipper";
 import CustomPagination from "./CustomPagination";
+import FooterCell from "./FooterCell";
 import TableSkeleton from "./TableSkeleton";
-import { Data } from "@/lib/types/general";
 
 export function DataTable<TData, TValue>({
   columns,
@@ -217,7 +217,7 @@ export function DataTable<TData, TValue>({
     <div className="w-full">
       <div className="rounded-sm border ">
         <Table className="">
-          <TableHeader className="relative bg-primary text-primary-foreground border-none">
+          <TableHeader className="relative bg-slate-200 text-primary-foreground border-none">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header, index) => {
@@ -225,7 +225,7 @@ export function DataTable<TData, TValue>({
                     <TableHead
                       key={header.id}
                       colSpan={header.colSpan}
-                      className={`text-center ${
+                      className={`text-center text-gray-600 font-semibold ${
                         index == 0 && "rounded-tl-sm"
                       } ${
                         index === headerGroup.headers.length - 1 &&
