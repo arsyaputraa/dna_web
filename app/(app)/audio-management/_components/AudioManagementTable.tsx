@@ -110,14 +110,42 @@ const AudioManagementTable = () => {
     },
     {
       header: "Action",
-      cell: () => (
-        <Button
-          className="flex gap-1 items-center bg-green-500 font-semibold"
-          size={"sm"}
-        >
-          Detail
-        </Button>
-      ),
+      cell: ({ row }) => {
+        const [detailDialog, setDetailDialog] = useState<boolean>(false);
+        const handleOpenDialog = () => {
+          setDetailDialog(true);
+        };
+        const handleCloseDialog = () => {
+          setDetailDialog(false);
+        };
+
+        return (
+          <>
+            <Button
+              className="flex gap-1 items-center bg-green-500 font-semibold"
+              size={"sm"}
+              onClick={handleOpenDialog}
+            >
+              Detail
+            </Button>
+            {/* DIALOG */}
+            <DialogCustomized
+              open={detailDialog}
+              onOpenChange={setDetailDialog}
+              contentProps={{
+                className: "w-max",
+              }}
+            >
+              <div className="flex flex-col gap-2 ">
+                {row.original.policyNumber}
+                <audio controls>
+                  <source src="https://www.computerhope.com/jargon/m/example.mp3" />
+                </audio>
+              </div>
+            </DialogCustomized>
+          </>
+        );
+      },
     },
   ];
 
