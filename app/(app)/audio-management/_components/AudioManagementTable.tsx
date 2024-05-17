@@ -7,7 +7,8 @@ import { Label } from "@/components/ui/label";
 import { ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { ArrowUpDown } from "lucide-react";
-import { ReactNode, useRef, useState } from "react";
+import { useState } from "react";
+import DetailDialog from "./DetailDialog";
 import UploadAudio from "./UploadAudio";
 
 interface AudioManagementTableProps {
@@ -134,12 +135,19 @@ const AudioManagementTable = () => {
   });
 
   const [uploadDialog, setUploadDialog] = useState<boolean>(false);
-  const uploadDialogTriggerRef = useRef<ReactNode>(null);
+  const [detailDialog, setDetailDialog] = useState<boolean>(false);
+
   const handleOpenDialog = () => {
     setUploadDialog(true);
   };
   const handleCloseDialog = () => {
     setUploadDialog(false);
+  };
+  const handleOpenDetailDialog = () => {
+    setDetailDialog(true);
+  };
+  const handleCloseDetailDialog = () => {
+    setDetailDialog(false);
   };
 
   return (
@@ -209,6 +217,16 @@ const AudioManagementTable = () => {
             handleCloseDialog();
           }}
         />
+      </DialogCustomized>
+
+      <DialogCustomized
+        open={detailDialog}
+        onOpenChange={setDetailDialog}
+        contentProps={{
+          className: "w-max",
+        }}
+      >
+        <DetailDialog />
       </DialogCustomized>
     </div>
   );

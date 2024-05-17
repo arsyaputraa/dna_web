@@ -32,6 +32,7 @@ const UploadAudio = ({
             type="text"
             name="policyNumber"
             onChange={handleChange}
+            value={values.policyNumber}
           />
         </div>
 
@@ -42,6 +43,7 @@ const UploadAudio = ({
             type="file"
             name="file"
             onChange={handleChange}
+            value={values.file}
           />
         </div>
 
