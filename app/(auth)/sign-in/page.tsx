@@ -13,10 +13,14 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function SignInPage() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [state, formAction] = useFormState(signInAction, {
     error: "",
   });
+
+  function handleShowPassword() {
+    setShowPassword(!showPassword);
+  }
 
   return (
     <div className="max-w-sm flex flex-col items-center mx-auto my-4">
@@ -28,7 +32,7 @@ export default function SignInPage() {
         className="mx-auto"
       />
       <h1 className="my-2 text-lg font-semibold">DNA SERVICES</h1>
-      <main className="bg-popover w-full p-10">
+      <main className="bg-popover w-full p-10 rounded-lg">
         <h1 className="text-2xl font-bold text-center">Sign in</h1>
         <AuthFormError state={state} />
         <form action={formAction}>
@@ -40,7 +44,7 @@ export default function SignInPage() {
           <Label htmlFor="password" className="text-muted-foreground">
             Password
           </Label>
-          <div className="relative flex">
+          {/* <div className="relative flex">
             <Input
               className=""
               type={showPassword ? "text" : "password"}
@@ -56,7 +60,21 @@ export default function SignInPage() {
             >
               {showPassword ? <EyeOffIcon /> : <EyeIcon />}
             </Button>
-          </div>
+          </div> */}
+          <Input
+            endAdornment={
+              <button
+                className="p-0 h-5 w-5 text-center"
+                onClick={handleShowPassword}
+                type="button"
+              >
+                {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+              </button>
+            }
+            type={showPassword ? "text" : "password"}
+            name="password"
+            id="password"
+          />
 
           <br />
           <SubmitButton />

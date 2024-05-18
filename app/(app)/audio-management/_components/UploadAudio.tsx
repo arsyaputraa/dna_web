@@ -22,11 +22,16 @@ const UploadAudio = ({
   });
   return (
     <div>
-      <h3>Upload Audio</h3>
+      <h3 className="text-2xl font-semibold mb-5">Upload Audio</h3>
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <Label htmlFor="policy-number-textfield">Policy Number</Label>
+        <div className="mb-3">
+          <Label
+            htmlFor="policy-number-textfield"
+            className="font-medium text-xs"
+          >
+            Policy Number
+          </Label>
           <Input
             id="policy-number-textfield"
             type="text"
@@ -37,7 +42,9 @@ const UploadAudio = ({
         </div>
 
         <div>
-          <Label htmlFor="file-upload-field">File</Label>
+          <Label htmlFor="file-upload-field" className="font-medium text-xs">
+            File
+          </Label>
           <Input
             id="file-upload-field"
             type="file"

@@ -43,16 +43,18 @@ const Navbar = ({ name }: { name: string }) => {
           <DropdownMenuContent data-state={dropdownOpen ? "open" : "closed"}>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <form action={signOutAction}>
-                <Button
-                  type="submit"
-                  variant={"ghost"}
-                  size={"sm"}
-                  className="h-fit w-fit p-0"
-                >
-                  Log out
-                </Button>
+                <DropdownMenuItem>
+                  <Button
+                    type="submit"
+                    variant={"ghost"}
+                    size={"sm"}
+                    className="h-fit w-fit p-0"
+                  >
+                    Log out
+                  </Button>
+                </DropdownMenuItem>
               </form>
             </DropdownMenuItem>
           </DropdownMenuContent>
