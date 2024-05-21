@@ -4,7 +4,7 @@ import { signOutAction } from "@/lib/actions/users";
 import { useHeadStore } from "@/lib/zustand/Header";
 import { ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -20,7 +20,7 @@ const Navbar = ({ name }: { name: string }) => {
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
-  useMemo(() => {
+  useEffect(() => {
     setHeaderName("");
   }, [pathname]);
   return (
