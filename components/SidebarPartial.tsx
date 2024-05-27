@@ -1,8 +1,10 @@
 "use client";
 import { AuthSession } from "@/lib/types/auth";
+import { cn } from "@/lib/utils";
 import { useUiStore } from "@/lib/zustand/UI";
-import { Landmark } from "lucide-react";
-import SidebarItems, { UserDetails } from "./SidebarItems";
+import Image from "next/image";
+import axaLogo from "public/images/axa-logo.png";
+import SidebarItems from "./SidebarItems";
 
 const SidebarPartial = ({ session }: { session: AuthSession }) => {
   const { sidebarOpen, setSidebarClosed, setSidebarOpened } = useUiStore(
@@ -49,17 +51,32 @@ const SidebarPartial = ({ session }: { session: AuthSession }) => {
     >
       <div className="flex flex-col justify-between h-full">
         <div className="space-y-4">
-          <h3
-            className={`${
-              sidebarOpen ? "text-lg font-semibold ml-4" : "sr-only"
-            }`}
-          >
-            Logo
-          </h3>
-          <Landmark className={sidebarOpen ? "sr-only" : ""} />
+          <div className="flex gap-2 items-center">
+            <Image
+              alt="axa logo"
+              src={axaLogo}
+              width={60}
+              height={60}
+              className={`text-lg font-semibold`}
+            />
+            <p
+              className={cn(sidebarOpen ? "text-md font-semibold" : "sr-only")}
+            >
+              DNA SERVICES
+            </p>
+          </div>
+
+          {/* <h3
+              className={`${
+                sidebarOpen ? "text-lg font-semibold ml-4" : "sr-only"
+              }`}
+            >
+              Logo
+            </h3> */}
+          {/* <Landmark className={sidebarOpen ? "sr-only" : ""} /> */}
           <SidebarItems />
         </div>
-        <UserDetails session={session} />
+        {/* <UserDetails session={session} /> */}
       </div>
     </aside>
   );

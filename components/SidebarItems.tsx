@@ -9,8 +9,10 @@ import { additionalLinks, defaultLinks } from "@/config/nav";
 import { AuthSession } from "@/lib/types/auth";
 import { cn } from "@/lib/utils";
 import { useUiStore } from "@/lib/zustand/UI";
+import { PopoverContent } from "@radix-ui/react-popover";
 import { useMemo, useState } from "react";
 import SidebarChild from "./SidebarChild";
+import SignOutBtn from "./auth/SignOutBtn";
 import {
   Accordion,
   AccordionContent,
@@ -18,6 +20,7 @@ import {
   AccordionTrigger,
 } from "./ui/accordion";
 import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Popover, PopoverTrigger } from "./ui/popover";
 import { Separator } from "./ui/separator";
 
 export interface SidebarLink {
@@ -147,10 +150,7 @@ const SidebarLink = ({
         <ul className="list-inside pl-1">
           {link.children.map((child) => (
             <li key={`${child.href}-${child.title}-${child.children.length}`}>
-              <SidebarChild
-                child={child}
-                active={pathname.includes(child.href)}
-              />
+              <SidebarChild child={child} active={pathname === child.href} />
             </li>
           ))}
         </ul>
@@ -167,29 +167,39 @@ export const UserDetails = ({ session }: { session: AuthSession }) => {
   if (!user?.name || user.name.length == 0) return null;
 
   return (
-    <Link href="#">
-      <div
-        className={`flex items-center ${
-          sidebarOpen ? "justify-between" : "justify-center"
-        } w-full border-t border-border pt-4 px-2`}
-      >
+    <Popover>
+      <PopoverTrigger>
         <div
-          className={`text-muted-foreground ${sidebarOpen ? "" : "sr-only"}`}
+          className={`flex items-center cursor-pointer ${
+            sidebarOpen ? "justify-between" : "justify-center"
+          } w-full border-t border-border gap-2 pt-4 px-2`}
         >
-          <p className="text-xs">{user.name ?? "John Doe"}</p>
+          <div
+            className={`text-muted-foreground ${sidebarOpen ? "" : "sr-only"}`}
+          >
+            <p className="text-xs text-end">{user.name ?? "John Doe"}</p>
+          </div>
+          <Avatar className="h-10 w-10">
+            <AvatarFallback className="border-border border-2 text-muted-foreground">
+              {user.name
+                ? user.name
+                    ?.split(" ")
+                    .map((word) => word[0].toUpperCase())
+                    .join("")
+                : "~"}
+            </AvatarFallback>
+          </Avatar>
         </div>
-        <Avatar className="h-10 w-10">
-          <AvatarFallback className="border-border border-2 text-muted-foreground">
-            {user.name
-              ? user.name
-                  ?.split(" ")
-                  .map((word) => word[0].toUpperCase())
-                  .join("")
-              : "~"}
-          </AvatarFallback>
-        </Avatar>
-      </div>
-    </Link>
+      </PopoverTrigger>
+      {sidebarOpen && (
+        <PopoverContent
+          side="right"
+          className="min-w-md p-3 bg-white rounded-md shadow-md"
+        >
+          <SignOutBtn />
+        </PopoverContent>
+      )}
+    </Popover>
   );
 };
 

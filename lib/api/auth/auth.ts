@@ -27,7 +27,5 @@ export async function LoginApi(username: string, password: string) {
     },
   });
 
-  clearTimeout(id);
-
   return fetching;
 }
