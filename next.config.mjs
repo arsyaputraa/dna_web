@@ -7,6 +7,7 @@ const nextConfig = {
   },
   experimental: {
     reactCompiler: true,
+    ppr: "incremental",
   },
   webpack: (config) => {
     config.externals.push("@node-rs/argon2", "@node-rs/bcrypt");

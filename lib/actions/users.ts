@@ -4,9 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db/index";
-
+import argon2 from "argon2";
 import { generateId } from "lucia";
-import { Argon2id } from "oslo/password";
 import { lucia, validateRequest } from "../auth/lucia";
 import {
   genericError,
@@ -97,7 +96,7 @@ export async function signUpAction(
 
   if (error !== null) return { error };
 
-  const hashedPassword = await new Argon2id().hash(data.password);
+  const hashedPassword = await argon2.hash(data.password);
   const userId = generateId(15);
 
   try {
